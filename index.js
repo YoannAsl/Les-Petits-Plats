@@ -43,14 +43,6 @@ const search = (list, value) => {
 	//       list.children[i].style.display = 'list-item';
 	//     }
 	//   }
-
-	//   for (let i = 0; i < list.children.length; i++) {
-	//     if (list.children[i].innerText.includes(value) && value.length > 0) {
-	//       list.children[i].style.display = 'list-item';
-	//     } else {
-	//       list.children[i].style.display = 'none';
-	//     }
-	//   }
 };
 
 const callSearchIngr = (e) => {
@@ -66,20 +58,27 @@ const mainSearch = (list, value) => {
 		let ingrResult;
 		list[i].ingredients.forEach((n) => {
 			ingrResult = n.ingredient.search(new RegExp(value, 'i'));
-			recipeIngrList += `${n.ingredient} : ${n.quantity}${n.unit} `;
+			recipeIngrList += `<li><span class="bold">${n.ingredient} :</span> ${
+				n.quantity || ''
+			}${n.unit || ''}</li> `;
 		});
 		const descrResult = list[i].description.search(new RegExp(value, 'i'));
 
 		if (nameResult >= 0 || ingrResult >= 0 || descrResult >= 0) {
-			// console.log(list[i].name)
-			// console.log(list[i].ingredients)
-			// console.log(list[i].description)
-
 			const newCard = document.createElement('div');
+			newCard.className = 'recipe-card';
 			newCard.innerHTML = `
-                <h3>${list[i].name}</h3>
-                <p>${recipeIngrList}</p>
-                <p>${list[i].description}</p>
+                <div class="img-placeholder"></div>
+                <div id="test">
+                    <div class="top">
+                        <h3>${list[i].name}</h3>
+                        <p class="time bold">${list[i].time} min</p>
+                    </div>
+                    <div class="bottom">
+                        <ul class="ingredients">${recipeIngrList}</ul>
+                        <p class="description">${list[i].description}</p>
+                    </div>
+                </div>
             `;
 			cardsContainer.appendChild(newCard);
 		}

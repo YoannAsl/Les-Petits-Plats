@@ -9,6 +9,12 @@ body {
 ul {
   padding: 0;
   margin: 0;
+  list-style: none;
+}
+
+p,
+h3 {
+  margin: 0;
 }
 
 #searchbar {
@@ -16,7 +22,7 @@ ul {
   height: 69px;
   border: none;
   border-radius: 5px;
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
 }
 
 #lists {
@@ -40,24 +46,75 @@ ul {
           flex-direction: column;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 1200px;
   max-height: 800px;
 }
 
 #lists ul li {
-  list-style: none;
   font-size: 18px;
   color: white;
   margin: 4px 0;
   display: none;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+#cards-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-gap: 4%;
+}
+
+#cards-container .recipe-card {
+  height: 364px;
+  background-color: #e7e7e7;
+  border-radius: 5px;
+}
+
+#cards-container .recipe-card .img-placeholder {
+  background-color: #c7bebe;
+  height: 178px;
+  border-radius: 5px 5px 0px 0px;
+}
+
+#cards-container .recipe-card #test {
+  padding: 20px;
+  height: 186px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: hidden;
+}
+
+#cards-container .recipe-card h3,
+#cards-container .recipe-card .time {
+  font-size: 18px;
+}
+
+#cards-container .recipe-card .top,
+#cards-container .recipe-card .bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#cards-container .recipe-card .description,
+#cards-container .recipe-card .ingredients {
+  font-size: 12px;
+  width: 50%;
+}
+
 #ingredient {
-  background-color: #3282F7;
+  background-color: #3282f7;
 }
 
 #ingredient #ingredients-search {
-  background-color: #3282F7;
+  background-color: #3282f7;
   font-weight: bold;
   font-size: 18px;
   color: white;
@@ -72,10 +129,10 @@ ul {
 }
 
 #appliances-search {
-  background-color: #68D9A4;
+  background-color: #68d9a4;
 }
 
 #utensils-search {
-  background-color: #ED6454;
+  background-color: #ed6454;
 }
 /*# sourceMappingURL=index.css.map */
