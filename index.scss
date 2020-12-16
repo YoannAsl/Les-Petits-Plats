@@ -25,7 +25,7 @@ ul {
     //     margin: 0 20px;
     // }
     div {
-        width: 1200;
+        // width: 1200px;
         padding: 10px 19px;
         border-radius: 5px;
     }
@@ -35,11 +35,13 @@ ul {
         flex-wrap: wrap;
         width: 1200px;
         max-height: 800px;
+        // display: none;
         li {
             list-style: none;
             font-size: 18px;
             color: white;
-            margin: 6px 0;
+            margin: 4px 0;
+            display: none;
         }
     }
 }
@@ -60,8 +62,6 @@ ul {
     height: 69px;
     width: 100%;
 }
-
-
 
 #appliances-search {
     background-color: #68D9A4;

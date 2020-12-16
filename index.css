@@ -26,7 +26,6 @@ ul {
 }
 
 #lists div {
-  width: 1200;
   padding: 10px 19px;
   border-radius: 5px;
 }
@@ -49,7 +48,8 @@ ul {
   list-style: none;
   font-size: 18px;
   color: white;
-  margin: 6px 0;
+  margin: 4px 0;
+  display: none;
 }
 
 #ingredient {
