@@ -1,40 +1,61 @@
 const ingrListContainer = document.querySelector('#ingredients-list');
 const ingrSearchBar = document.querySelector('#ingredients-search');
-const ingrList = [];
+// const ingrList = [];
 
 const mainSearchBar = document.querySelector('#searchbar');
 
 const cardsContainer = document.querySelector('#cards-container');
-
+let displayedRecipes = [];
+let ingrTags = '';
 // DEMANDER POUR LOWERCASE - UPPERCASE
 
-for (let i = 0; i < recipes.length; i++) {
-	recipes[i].ingredients.forEach((l) => {
-		if (!ingrList.includes(l.ingredient.toLowerCase())) {
-			ingrList.push(l.ingredient.toLowerCase());
-		}
-	});
-}
+// for (let i = 0; i < recipes.length; i++) {
+// 	recipes[i].ingredients.forEach((l) => {
+// 		if (!ingrList.includes(l.ingredient.toLowerCase())) {
+// 			ingrList.push(l.ingredient.toLowerCase());
+// 		}
+// 	});
+// }
 
-for (let i = 0; i < ingrList.length; i++) {
-	const newIngredient = document.createElement('li');
-	newIngredient.innerText =
-		ingrList[i].charAt(0).toUpperCase() + ingrList[i].slice(1);
-	ingrListContainer.appendChild(newIngredient);
-}
+// for (let i = 0; i < ingrList.length; i++) {
+// 	const newIngredient = document.createElement('li');
+// 	newIngredient.innerText =
+// 		ingrList[i].charAt(0).toUpperCase() + ingrList[i].slice(1);
+// 	ingrListContainer.appendChild(newIngredient);
+// }
 
-const search = (list, value) => {
-	for (let i = 0; i < list.children.length; i++) {
-		const result = list.children[i].innerText.search(
-			new RegExp(value, 'i', 'u')
-		);
-
-		if (result >= 0) {
-			list.children[i].style.display = 'list-item';
-		} else {
-			list.children[i].style.display = 'none';
-		}
+const fillIngrtags = (list) => {
+	ingrTags = '';
+	for (let i = 0; i < list.length; i++) {
+		list[i].ingredients.forEach((n) => {
+			if (!ingrTags.includes(n.ingredient)) {
+				ingrTags += `<li>${n.ingredient}</li>`;
+			}
+		});
 	}
+	ingrListContainer.innerHTML = `${ingrTags}`;
+};
+
+fillIngrtags(recipes);
+
+const searchIngr = (list, value) => {
+	for (let i = 0; i < list.length; i++) {
+		let result;
+		list[i].ingredients.forEach((n) => {
+			result = n.ingredient.search(new RegExp(value, 'i'));
+			// console.log(n.ingredient);
+			if (result >= 0 && !ingrTags.includes(n.ingredient)) {
+				// list[i].style.display = 'list-item';
+				ingrTags += `<li>${n.ingredient}</li>`;
+			}
+		});
+
+		// else {
+		// 	// list[i].style.display = 'none';
+		// 	console.log('no match');
+		// }
+	}
+	ingrListContainer.innerHTML = `${ingrTags}`;
 
 	//   for (let i = 0; i < list.children.length; i++) {
 	//     if (!list.children[i].innerText.includes(value)) {
@@ -46,12 +67,19 @@ const search = (list, value) => {
 };
 
 const callSearchIngr = (e) => {
-	if (e.target.value.length >= 3) {
-		search(ingrListContainer, e.target.value);
-	}
+	// if (e.target.value.length >= 3) {
+	searchIngr(displayedRecipes, e.target.value);
+	// }
+};
+
+const resetMain = () => {
+	displayedRecipes = [];
+	cardsContainer.innerHTML = '';
+	ingrListContainer.innerHTML = '';
 };
 
 const mainSearch = (list, value) => {
+	resetMain();
 	for (let i = 0; i < list.length; i++) {
 		let recipeIngrList = '';
 		const nameResult = list[i].name.search(new RegExp(value, 'i'));
@@ -81,6 +109,9 @@ const mainSearch = (list, value) => {
                 </div>
             `;
 			cardsContainer.appendChild(newCard);
+
+			displayedRecipes.push(list[i]);
+			fillIngrtags(displayedRecipes);
 		}
 	}
 };
@@ -94,3 +125,8 @@ const callMainSearch = (e) => {
 
 ingrSearchBar.addEventListener('input', callSearchIngr);
 mainSearchBar.addEventListener('input', callMainSearch);
+mainSearchBar.addEventListener('keydown', (e) => {
+	if (e.key === 'Backspace') {
+		resetMain();
+	}
+});
