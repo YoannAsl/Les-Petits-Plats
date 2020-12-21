@@ -46,6 +46,7 @@ h3 {
           flex-direction: column;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  width: 1200px;
   max-height: 800px;
 }
 
