@@ -39,8 +39,8 @@ h3 {
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
-		width: 1200px;
-		max-height: 800px;
+		width: 500px;
+		max-height: 500px;
 		// display: none;
 		li {
 			font-size: 18px;
@@ -108,10 +108,16 @@ h3 {
 	width: 100%;
 }
 
-#appliances-search {
+#appliance {
 	background-color: #68d9a4;
+	#appliances-search {
+		background-color: #68d9a4;
+	}
 }
 
-#utensils-search {
+#utensil {
 	background-color: #ed6454;
+	#utensils-search {
+		background-color: #ed6454;
+	}
 }

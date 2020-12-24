@@ -46,8 +46,8 @@ h3 {
           flex-direction: column;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 1200px;
-  max-height: 800px;
+  width: 500px;
+  max-height: 500px;
 }
 
 #lists ul li {
@@ -128,11 +128,19 @@ h3 {
   width: 100%;
 }
 
-#appliances-search {
+#appliance {
   background-color: #68d9a4;
 }
 
-#utensils-search {
+#appliance #appliances-search {
+  background-color: #68d9a4;
+}
+
+#utensil {
+  background-color: #ed6454;
+}
+
+#utensil #utensils-search {
   background-color: #ed6454;
 }
 /*# sourceMappingURL=index.css.map */
