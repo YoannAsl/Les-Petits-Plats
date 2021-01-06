@@ -23,9 +23,13 @@ class App {
 
 	init() {
 		this.fillTagsLists(this.recipes);
+		// this.ingrSearchBar.addEventListener(
+		// 	'input',
+		// 	this.callSearchIngr.bind(this)
+		// );
 		this.ingrSearchBar.addEventListener(
 			'input',
-			this.callSearchIngr.bind(this)
+			this.callSecondarySearch.bind(this)
 		);
 		this.appliancesSearchBar.addEventListener(
 			'input',
@@ -139,19 +143,17 @@ class App {
 		switch (tag.className) {
 			case 'ingredient':
 				this.ingrFilter.push(tag.innerText);
+				let newList = [];
 				if (this.mainSearchBar.value.length < 3) {
-					this.displayedRecipes = this.filterByIngredientTags(
-						this.recipes,
-						this.ingrFilter
-					);
+					newList = this.filterByIngredientTags(this.recipes, this.ingrFilter);
 				} else {
-					const newList = this.filterByIngredientTags(
+					newList = this.filterByIngredientTags(
 						this.displayedRecipes,
 						this.ingrFilter
 					);
-					this.resetMain();
-					this.displayedRecipes = newList;
 				}
+				this.resetMain();
+				this.displayedRecipes = newList;
 				this.createRecipeCards(this.displayedRecipes);
 				this.fillTagsLists(this.displayedRecipes);
 				break;
@@ -166,27 +168,27 @@ class App {
 		}
 	}
 
-	searchIngr(list, value) {
-		this.ingrTags = '';
-		for (let i = 0; i < list.length; i++) {
-			let result;
-			list[i].ingredients.forEach((n) => {
-				result = n.ingredient.search(new RegExp(value, 'i'));
-				if (result >= 0 && !this.ingrTags.includes(n.ingredient)) {
-					this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
-				}
-			});
-		}
-		this.ingrListContainer.innerHTML = `${this.ingrTags}`;
-	}
+	// searchIngr(list, value) {
+	// 	this.ingrTags = '';
+	// 	for (let i = 0; i < list.length; i++) {
+	// 		let result;
+	// 		list[i].ingredients.forEach((n) => {
+	// 			result = n.ingredient.search(new RegExp(value, 'i'));
+	// 			if (result >= 0 && !this.ingrTags.includes(n.ingredient)) {
+	// 				this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
+	// 			}
+	// 		});
+	// 	}
+	// 	this.ingrListContainer.innerHTML = `${this.ingrTags}`;
+	// }
 
-	callSearchIngr(e) {
-		if (this.displayedRecipes.length === 0) {
-			this.searchIngr(this.recipes, e.target.value);
-		} else {
-			this.searchIngr(this.displayedRecipes, e.target.value);
-		}
-	}
+	// callSearchIngr(e) {
+	// 	if (this.displayedRecipes.length === 0) {
+	// 		this.searchIngr(this.recipes, e.target.value);
+	// 	} else {
+	// 		this.searchIngr(this.displayedRecipes, e.target.value);
+	// 	}
+	// }
 
 	secondarySearch(list, value, type) {
 		switch (type) {
