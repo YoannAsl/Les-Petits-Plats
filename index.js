@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-restricted-syntax */
 class App {
@@ -18,15 +19,13 @@ class App {
 		this.ingrFilter = [];
 		this.applFilter = [];
 		this.utlFilter = [];
-		this.filteredRecipes = [];
+		this.selectedTagsContainer = document.querySelector(
+			'#selected-tags-container'
+		);
 	}
 
 	init() {
 		this.fillTagsLists(this.recipes);
-		// this.ingrSearchBar.addEventListener(
-		// 	'input',
-		// 	this.callSearchIngr.bind(this)
-		// );
 		this.ingrSearchBar.addEventListener(
 			'input',
 			this.callSecondarySearch.bind(this)
@@ -81,7 +80,54 @@ class App {
 		this.utensilsListContainer.innerHTML = `${this.utensilTags}`;
 	}
 
+	fillSelectedTagsContainer() {
+		let selectedIngrTags = '';
+		let selectedApplTags = '';
+		let selectedUtlTags = '';
+
+		this.ingrFilter.forEach((n) => {
+			selectedIngrTags += `<li class="selected-item selected-ingr">${n}<i class="far fa-times-circle" onclick="app.removeSelectedTag(this)"></i></li>`;
+		});
+		this.applFilter.forEach((n) => {
+			selectedApplTags += `<li class="selected-item selected-appl">${n}<i class="far fa-times-circle" onclick="app.removeSelectedTag(this)"></i></li>`;
+		});
+		this.utlFilter.forEach((n) => {
+			selectedUtlTags += `<li class="selected-item selected-utl">${n}<i class="far fa-times-circle" onclick="app.removeSelectedTag(this)"></i></li>`;
+		});
+		this.selectedTagsContainer.innerHTML = `${selectedIngrTags} ${selectedApplTags} ${selectedUtlTags}`;
+	}
+
+	removeSelectedTag(tag) {
+		switch (tag.parentNode.classList[1]) {
+			case 'selected-ingr':
+				const index = this.ingrFilter.indexOf(tag.parentNode.innerText);
+				if (index > -1) {
+					this.ingrFilter.splice(index, 1);
+				}
+				break;
+			case 'selected-appl':
+				const index2 = this.applFilter.indexOf(tag.parentNode.innerText);
+				if (index2 > -1) {
+					this.applFilter.splice(index2, 1);
+				}
+				break;
+			case 'selected-utl':
+				const index3 = this.utlFilter.indexOf(tag.parentNode.innerText);
+				if (index3 > -1) {
+					this.utlFilter.splice(index3, 1);
+				}
+				break;
+			default:
+				console.log('Erreur switch removeSelectedTag');
+		}
+		this.fillSelectedTagsContainer();
+	}
+
 	createRecipeCards(list) {
+		if (list.length === 0) {
+			this.cardsContainer.innerHTML = `<p>Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.</p>`;
+		}
+
 		for (let i = 0; i < list.length; i++) {
 			const newCard = document.createElement('div');
 			let cardIngredients = '';
@@ -110,28 +156,47 @@ class App {
 		}
 	}
 
-	hasIngredient(recipe, ingredient) {
-		for (const currentIngredient of recipe.ingredients) {
-			if (currentIngredient.ingredient.includes(ingredient)) {
-				return true;
-			}
+	hasItem(recipe, item, type) {
+		switch (type) {
+			case 'ingredient':
+				for (const currentIngredient of recipe.ingredients) {
+					if (currentIngredient.ingredient.includes(item)) {
+						return true;
+					}
+				}
+				break;
+			case 'appliance':
+				if (recipe.appliance.includes(item)) {
+					return true;
+				}
+				break;
+			case 'utensil':
+				for (const currentUtensil of recipe.ustensils) {
+					if (currentUtensil.includes(item)) {
+						return true;
+					}
+				}
+				break;
+			default:
+				console.log('Erreur switch hasItem');
 		}
 		return false;
 	}
 
-	filterByIngredient(listRecipes, ingredient) {
+	filterByItem(listRecipes, item, type) {
 		const newRecipesList = [];
 		for (const currentRecipe of listRecipes) {
-			if (this.hasIngredient(currentRecipe, ingredient)) {
+			if (this.hasItem(currentRecipe, item, type)) {
 				newRecipesList.push(currentRecipe);
 			}
 		}
 		return newRecipesList;
 	}
 
-	filterByIngredientTags(listRecipes, listIngredients) {
-		for (const currentIngredient of listIngredients) {
-			listRecipes = this.filterByIngredient(listRecipes, currentIngredient);
+	filterByTags(listRecipes, listTags, type) {
+		for (const currentTag of listTags) {
+			// eslint-disable-next-line no-param-reassign
+			listRecipes = this.filterByItem(listRecipes, currentTag, type);
 			if (listRecipes.length === 0) {
 				break;
 			}
@@ -140,55 +205,65 @@ class App {
 	}
 
 	clickTag(tag) {
+		let newList = [];
 		switch (tag.className) {
 			case 'ingredient':
 				this.ingrFilter.push(tag.innerText);
-				let newList = [];
 				if (this.mainSearchBar.value.length < 3) {
-					newList = this.filterByIngredientTags(this.recipes, this.ingrFilter);
+					newList = this.filterByTags(
+						this.recipes,
+						this.ingrFilter,
+						tag.className
+					);
 				} else {
-					newList = this.filterByIngredientTags(
+					newList = this.filterByTags(
 						this.displayedRecipes,
-						this.ingrFilter
+						this.ingrFilter,
+						tag.className
 					);
 				}
-				this.resetMain();
-				this.displayedRecipes = newList;
-				this.createRecipeCards(this.displayedRecipes);
-				this.fillTagsLists(this.displayedRecipes);
 				break;
 			case 'appliance':
 				this.applFilter.push(tag.innerText);
+				if (this.mainSearchBar.value.length < 3) {
+					newList = this.filterByTags(
+						this.recipes,
+						this.applFilter,
+						tag.className
+					);
+				} else {
+					newList = this.filterByTags(
+						this.displayedRecipes,
+						this.applFilter,
+						tag.className
+					);
+				}
 				break;
 			case 'utensil':
 				this.utlFilter.push(tag.innerText);
+				if (this.mainSearchBar.value.length < 3) {
+					newList = this.filterByTags(
+						this.recipes,
+						this.utlFilter,
+						tag.className
+					);
+				} else {
+					newList = this.filterByTags(
+						this.displayedRecipes,
+						this.utlFilter,
+						tag.className
+					);
+				}
 				break;
 			default:
-				console.log('Erreur');
+				console.log('Erreur switch clickTag');
 		}
+		this.fillSelectedTagsContainer();
+		this.resetMain();
+		this.displayedRecipes = newList;
+		this.createRecipeCards(this.displayedRecipes);
+		this.fillTagsLists(this.displayedRecipes);
 	}
-
-	// searchIngr(list, value) {
-	// 	this.ingrTags = '';
-	// 	for (let i = 0; i < list.length; i++) {
-	// 		let result;
-	// 		list[i].ingredients.forEach((n) => {
-	// 			result = n.ingredient.search(new RegExp(value, 'i'));
-	// 			if (result >= 0 && !this.ingrTags.includes(n.ingredient)) {
-	// 				this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
-	// 			}
-	// 		});
-	// 	}
-	// 	this.ingrListContainer.innerHTML = `${this.ingrTags}`;
-	// }
-
-	// callSearchIngr(e) {
-	// 	if (this.displayedRecipes.length === 0) {
-	// 		this.searchIngr(this.recipes, e.target.value);
-	// 	} else {
-	// 		this.searchIngr(this.displayedRecipes, e.target.value);
-	// 	}
-	// }
 
 	secondarySearch(list, value, type) {
 		switch (type) {
@@ -213,12 +288,6 @@ class App {
 					if (result >= 0 && !this.appliancesTags.includes(list[i].appliance)) {
 						this.appliancesTags += `<li class="appliance" onclick="app.clickTag(this)">${list[i].appliance}</li>`;
 					}
-					// list[i].appliance.forEach((n) => {
-					// 	result = n.search(new RegExp(value, 'i'));
-					// 	if (result >= 0 && !this.appliancesTags.includes(n)) {
-					// 		this.appliancesTags += `<li class="appliance" onclick="app.clickTag(this)">${n}</li>`;
-					// 	}
-					// });
 				}
 				this.appliancesListContainer.innerHTML = `${this.appliancesTags}`;
 				break;
@@ -236,7 +305,7 @@ class App {
 				this.utensilsListContainer.innerHTML = `${this.utensilTags}`;
 				break;
 			default:
-				console.log('Erreur');
+				console.log('Erreur switch secondarySearch');
 		}
 	}
 
@@ -257,14 +326,10 @@ class App {
 	mainSearch(list, value) {
 		this.resetMain();
 		for (let i = 0; i < list.length; i++) {
-			// let recipeIngrList = '';
 			const nameResult = list[i].name.search(new RegExp(value, 'i'));
 			let ingrResult;
 			list[i].ingredients.forEach((n) => {
 				ingrResult = n.ingredient.search(new RegExp(value, 'i'));
-				// recipeIngrList += `<li><span class="bold">${n.ingredient} :</span> ${
-				// 	n.quantity || ''
-				// }${n.unit || ''}</li> `;
 			});
 			const descrResult = list[i].description.search(new RegExp(value, 'i'));
 

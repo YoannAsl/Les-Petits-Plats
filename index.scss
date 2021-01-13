@@ -25,6 +25,33 @@ h3 {
 	background-color: #e7e7e7;
 }
 
+#selected-tags-container {
+	display: flex;
+	margin: 25px 0 15px 0;
+	.selected-item {
+		list-style: none;
+		font-weight: bold;
+		font-size: 14px;
+		color: white;
+		border-radius: 5px;
+		text-align: center;
+		padding: 10px 20px;
+		i::before {
+			margin-left: 10px;
+			font-size: 20px;
+		}
+	}
+	.selected-ingr {
+		background-color: #3282f7;
+	}
+	.selected-appl {
+		background-color: #68d9a4;
+	}
+	.selected-utl {
+		background-color: #ed6454;
+	}
+}
+
 #lists {
 	display: flex;
 	// :nth-child(2) {
