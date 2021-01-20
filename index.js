@@ -50,6 +50,27 @@ class App {
 				}
 			}
 		});
+
+		const itemLists = document.querySelectorAll('.list');
+		const itemListsTop = document.querySelectorAll('.list-top-part');
+		const itemListsArrows = document.querySelectorAll('.arrow');
+		for (let i = 0; i < itemListsArrows.length; i++) {
+			itemListsArrows[i].addEventListener('click', () => {
+				itemLists[i].classList.toggle('open');
+				// console.log(itemLists[i].classList);
+				if (itemLists[i].classList.contains('open')) {
+					// console.log(itemLists[i].childNodes);
+					// console.log(itemListsTop[i].childNodes);
+					itemListsTop[i].childNodes[1].style.display = 'block';
+					itemListsTop[i].childNodes[3].style.display = 'none';
+					itemLists[i].childNodes[3].style.display = 'flex';
+				} else {
+					itemListsTop[i].childNodes[1].style.display = 'none';
+					itemListsTop[i].childNodes[3].style.display = 'block';
+					itemLists[i].childNodes[3].style.display = 'none';
+				}
+			});
+		}
 	}
 
 	fillTagsLists(list) {
@@ -98,6 +119,7 @@ class App {
 	}
 
 	removeSelectedTag(tag) {
+		let newList = [];
 		switch (tag.parentNode.classList[1]) {
 			case 'selected-ingr':
 				const index = this.ingrFilter.indexOf(tag.parentNode.innerText);
@@ -105,12 +127,14 @@ class App {
 					this.ingrFilter.splice(index, 1);
 				}
 				break;
+
 			case 'selected-appl':
 				const index2 = this.applFilter.indexOf(tag.parentNode.innerText);
 				if (index2 > -1) {
 					this.applFilter.splice(index2, 1);
 				}
 				break;
+
 			case 'selected-utl':
 				const index3 = this.utlFilter.indexOf(tag.parentNode.innerText);
 				if (index3 > -1) {
@@ -120,7 +144,39 @@ class App {
 			default:
 				console.log('Erreur switch removeSelectedTag');
 		}
+
+		newList = this.filterByTags(this.recipes, this.ingrFilter, 'ingredient');
+		newList = this.filterByTags(newList, this.applFilter, 'appliance');
+		newList = this.filterByTags(newList, this.utlFilter, 'utensil');
+
+		this.displayedRecipes = newList;
+
+		if (!this.mainSearchBar.value.length == 0) {
+			this.mainSearch(this.recipes, this.mainSearchBar.value);
+		}
+
+		if (this.displayedRecipes.length === 0) {
+			newList = this.filterByTags(this.recipes, this.ingrFilter, 'ingredient');
+			newList = this.filterByTags(newList, this.applFilter, 'appliance');
+			newList = this.filterByTags(newList, this.utlFilter, 'utensil');
+		} else {
+			newList = this.filterByTags(
+				this.displayedRecipes,
+				this.ingrFilter,
+				'ingredient'
+			);
+			newList = this.filterByTags(newList, this.applFilter, 'appliance');
+			newList = this.filterByTags(newList, this.utlFilter, 'utensil');
+		}
+		this.cardsContainer.innerHTML = '';
+		this.displayedRecipes = newList;
 		this.fillSelectedTagsContainer();
+		this.createRecipeCards(this.displayedRecipes);
+		if (this.displayedRecipes.length === 0) {
+			this.fillTagsLists(this.recipes);
+		} else {
+			this.fillTagsLists(this.displayedRecipes);
+		}
 	}
 
 	createRecipeCards(list) {
@@ -209,7 +265,7 @@ class App {
 		switch (tag.className) {
 			case 'ingredient':
 				this.ingrFilter.push(tag.innerText);
-				if (this.mainSearchBar.value.length < 3) {
+				if (this.displayedRecipes.length === 0) {
 					newList = this.filterByTags(
 						this.recipes,
 						this.ingrFilter,
@@ -225,7 +281,7 @@ class App {
 				break;
 			case 'appliance':
 				this.applFilter.push(tag.innerText);
-				if (this.mainSearchBar.value.length < 3) {
+				if (this.displayedRecipes.length === 0) {
 					newList = this.filterByTags(
 						this.recipes,
 						this.applFilter,
@@ -241,7 +297,7 @@ class App {
 				break;
 			case 'utensil':
 				this.utlFilter.push(tag.innerText);
-				if (this.mainSearchBar.value.length < 3) {
+				if (this.displayedRecipes.length === 0) {
 					newList = this.filterByTags(
 						this.recipes,
 						this.utlFilter,
@@ -320,7 +376,9 @@ class App {
 	resetMain() {
 		this.displayedRecipes = [];
 		this.cardsContainer.innerHTML = '';
-		this.ingrListContainer.innerHTML = '';
+		// this.ingrListContainer.innerHTML = '';
+		// this.appliancesListContainer.innerHTML = '';
+		// this.utensilsListContainer.innerHTML = '';
 	}
 
 	mainSearch(list, value) {
@@ -341,6 +399,7 @@ class App {
 	}
 
 	callMainSearch(e) {
+		// console.log(e.target);
 		if (e.target.value.length >= 3) {
 			this.mainSearch(this.recipes, e.target.value);
 			this.createRecipeCards(this.displayedRecipes);
