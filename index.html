@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <link rel="stylesheet" href="./index.css">
     <title>Les Petits Plats</title>
 </head>
@@ -12,6 +13,8 @@
     <img src="./logo.svg"></img>
 
     <input id="searchbar" type="text" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
+
+    <div id="selected-tags-container"></div>
 
     <section id="lists">
         <div id="ingredient" class="list">
@@ -23,13 +26,21 @@
             <div id="ingredients-list"></div>
         </div>
         
-        <div id="appliance">
-            <input id="appliances-search" class="small-searchbar" type="text">
+        <div id="appliance" class="list">
+            <div class="list-top-part">
+                <input id="appliances-search" class="small-searchbar" type="text" placeholder="Rechercher un appareil">
+                <p class="lists-names">Appareils</p>
+                <i class="fas fa-chevron-down arrow"></i>
+            </div>
             <ul id="appliances-list"></ul>
         </div>
     
-        <div id="utensil">
-            <input id="utensils-search" class="small-searchbar" type="text">
+        <div id="utensil" class="list">
+            <div class="list-top-part">
+                <input id="utensils-search" class="small-searchbar" type="text" placeholder="Rechercher un ustensile">
+                <p class="lists-names">Ustensiles</p>
+                <i class="fas fa-chevron-down arrow"></i>
+            </div>
             <ul id="utensils-list"></ul>
         </div>
     </section>
