@@ -14,9 +14,13 @@
     <input id="searchbar" type="text" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
 
     <section id="lists">
-        <div id="ingredient">
-            <input id="ingredients-search" class="small-searchbar" type="text" placeholder="Recherche un ingédient">
-            <ul id="ingredients-list"></ul>
+        <div id="ingredient" class="list">
+            <div class="list-top-part">
+                <input id="ingredients-search" class="small-searchbar" type="text" placeholder="Rechercher un ingédient">
+                <p class="lists-names">Ingrédients</p>
+                <i class="fas fa-chevron-down arrow"></i>
+            </div>
+            <div id="ingredients-list"></div>
         </div>
         
         <div id="appliance">

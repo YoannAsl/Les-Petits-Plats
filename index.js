@@ -31,6 +31,29 @@ class App {
 				this.resetMain();
 			}
 		});
+
+		const itemLists = document.querySelectorAll('.list');
+		const itemListsTop = document.querySelectorAll('.list-top-part');
+		const itemListsArrows = document.querySelectorAll('.arrow');
+		for (let i = 0; i < itemListsArrows.length; i++) {
+			itemListsArrows[i].addEventListener('click', () => {
+				itemLists[i].classList.toggle('open');
+				// console.log(itemLists[i].classList);
+				if (itemLists[i].classList.contains('open')) {
+					// console.log(itemLists[i].childNodes);
+					// console.log(itemListsTop[i].childNodes);
+					itemListsTop[i].childNodes[1].style.display = 'block';
+					itemListsTop[i].childNodes[3].style.display = 'none';
+					itemLists[i].childNodes[3].style.display = 'flex';
+					itemListsArrows[i].style.transform = 'rotate(180deg)';
+				} else {
+					itemListsTop[i].childNodes[1].style.display = 'none';
+					itemListsTop[i].childNodes[3].style.display = 'block';
+					itemLists[i].childNodes[3].style.display = 'none';
+					itemListsArrows[i].style.transform = 'rotate(0deg)';
+				}
+			});
+		}
 	}
 
 	fillTagsLists(list) {
@@ -40,7 +63,7 @@ class App {
 		for (let i = 0; i < list.length; i++) {
 			list[i].ingredients.forEach((n) => {
 				if (!this.ingrTags.includes(n.ingredient)) {
-					this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
+					this.ingrTags += `<p class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</p>`;
 				}
 			});
 		}

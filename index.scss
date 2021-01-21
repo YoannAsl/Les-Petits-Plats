@@ -36,7 +36,6 @@ h3 {
 		border-radius: 5px;
 	}
 	ul {
-		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
 		width: 500px;
@@ -47,6 +46,18 @@ h3 {
 			color: white;
 			margin: 4px 0;
 			// display: none;
+		}
+	}
+	#ingredients-list {
+		// display: inline-block;
+		display: none;
+		flex-direction: column;
+		overflow: auto;
+		max-height: 400px;
+		p {
+			color: white;
+			font-size: 18px;
+			margin: 4px 0;
 		}
 	}
 }
