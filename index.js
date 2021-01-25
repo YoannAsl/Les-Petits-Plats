@@ -385,19 +385,19 @@ class App {
 
 	mainSearch(list, value) {
 		this.resetMain();
-		for (let i = 0; i < list.length; i++) {
-			const nameResult = list[i].name.search(new RegExp(value, 'i'));
-			let ingrResult;
-			list[i].ingredients.forEach((n) => {
-				ingrResult = n.ingredient.search(new RegExp(value, 'i'));
-			});
-			const descrResult = list[i].description.search(new RegExp(value, 'i'));
+		let newList = [];
+		newList = list.filter((recipe) => {
+			return (
+				recipe.name.search(new RegExp(value, 'i')) >= 0 ||
+				recipe.description.search(new RegExp(value, 'i')) >= 0 ||
+				recipe.ingredients.some((n) => {
+					return n.ingredient.search(new RegExp(value, 'i')) >= 0;
+				})
+			);
+		});
 
-			if (nameResult >= 0 || ingrResult >= 0 || descrResult >= 0) {
-				this.displayedRecipes.push(list[i]);
-				this.fillTagsLists(this.displayedRecipes);
-			}
-		}
+		this.displayedRecipes = newList;
+		this.fillTagsLists(this.displayedRecipes);
 	}
 
 	callMainSearch(e) {
