@@ -386,17 +386,62 @@ class App {
 	mainSearch(list, value) {
 		this.resetMain();
 		for (let i = 0; i < list.length; i++) {
+			// let ingrResult;
+			// if (list[i].name.search(new RegExp(value, 'i')) >= 0) {
+			// 	this.displayedRecipes.push(list[i]);
+			// 	this.fillTagsLists(this.displayedRecipes);
+			// 	// console.log(this.displayedRecipes);
+			// } else {
+			// 	// eslint-disable-next-line no-lonely-if
+			// 	if (list[i].description.search(new RegExp(value, 'i')) >= 0) {
+			// 		this.displayedRecipes.push(list[i]);
+			// 		this.fillTagsLists(this.displayedRecipes);
+			// 	} else {
+			// 		list[i].ingredients.forEach((n) => {
+			// 			console.log(n.ingredient);
+			// 			// console.log(n.ingredient.search(new RegExp(value, 'i')));
+			// 			if (n.ingredient.search(new RegExp(value, 'i')) >= 0) {
+			// 				console.log(n);
+			// 				// this.displayedRecipes.push(list[i]);
+			// 				// this.fillTagsLists(this.displayedRecipes);
+			// 				console.log(this.displayedRecipes);
+			// 			}
+			// 		});
+			// 	}
+			// }
+			// list[i].ingredients.forEach((n) => {
+			// 	console.log(n.ingredient);
+			// 	// console.log(n.ingredient.search(new RegExp(value, 'i')));
+			// 	if (n.ingredient.search(new RegExp(value, 'i')) >= 0) {
+			// 		console.log(n);
+			// 		this.displayedRecipes.push(list[i]);
+			// 		this.fillTagsLists(this.displayedRecipes);
+			// 		console.log(this.displayedRecipes);
+			// 	}
+			// });
 			const nameResult = list[i].name.search(new RegExp(value, 'i'));
-			let ingrResult;
-			list[i].ingredients.forEach((n) => {
-				ingrResult = n.ingredient.search(new RegExp(value, 'i'));
-			});
+			// list[i].ingredients.forEach((n) => {
+			// 	ingrResult = n.ingredient.search(new RegExp(value, 'i'));
+			// });
+
 			const descrResult = list[i].description.search(new RegExp(value, 'i'));
 
-			if (nameResult >= 0 || ingrResult >= 0 || descrResult >= 0) {
+			if (nameResult >= 0 || descrResult >= 0) {
 				this.displayedRecipes.push(list[i]);
 				this.fillTagsLists(this.displayedRecipes);
+				console.log(this.displayedRecipes.length);
 			}
+			list[i].ingredients.forEach((n) => {
+				if (n.ingredient.search(new RegExp(value, 'i')) >= 0) {
+					// console.log(this.displayedRecipes.includes(list[i]));
+					// console.log(n);
+					if (!this.displayedRecipes.includes(list[i])) {
+						this.displayedRecipes.push(list[i]);
+						this.fillTagsLists(this.displayedRecipes);
+						console.log(this.displayedRecipes.length);
+					}
+				}
+			});
 		}
 	}
 
