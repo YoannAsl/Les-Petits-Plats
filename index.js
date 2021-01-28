@@ -82,7 +82,7 @@ class App {
 		for (let i = 0; i < list.length; i++) {
 			list[i].ingredients.forEach((n) => {
 				if (!this.ingrTags.includes(n.ingredient)) {
-					this.ingrTags += `<p class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</p>`;
+					this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
 				}
 			});
 		}
@@ -197,6 +197,7 @@ class App {
 					} :</span> ${n.quantity || ''}${n.unit || ''}</li> `)
 			);
 			newCard.className = 'recipe-card';
+			// couper description
 			newCard.innerHTML = `
 				<div class="img-placeholder"></div>
 				<div id="test">
@@ -395,13 +396,11 @@ class App {
 				})
 			);
 		});
-
 		this.displayedRecipes = newList;
 		this.fillTagsLists(this.displayedRecipes);
 	}
 
 	callMainSearch(e) {
-		// console.log(e.target);
 		if (e.target.value.length >= 3) {
 			this.mainSearch(this.recipes, e.target.value);
 			this.createRecipeCards(this.displayedRecipes);
