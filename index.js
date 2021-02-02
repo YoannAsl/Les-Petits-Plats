@@ -338,8 +338,7 @@ class App {
 			case 'appliances-search':
 				this.appliancesTags = '';
 				for (let i = 0; i < list.length; i++) {
-					let result;
-					result = list[i].appliance.search(new RegExp(value, 'i'));
+					const result = list[i].appliance.search(new RegExp(value, 'i'));
 					if (result >= 0 && !this.appliancesTags.includes(list[i].appliance)) {
 						this.appliancesTags += `<li class="appliance" onclick="app.clickTag(this)">${list[i].appliance}</li>`;
 					}
@@ -375,34 +374,18 @@ class App {
 	resetMain() {
 		this.displayedRecipes = [];
 		this.cardsContainer.innerHTML = '';
-		// this.ingrListContainer.innerHTML = '';
-		// this.appliancesListContainer.innerHTML = '';
-		// this.utensilsListContainer.innerHTML = '';
 	}
 
 	mainSearch(list, value) {
 		this.resetMain();
 		for (let i = 0; i < list.length; i++) {
-			// const nameResult = list[i].name.search(new RegExp(value, 'i'));
-			// let ingrResult;
-			// list[i].ingredients.forEach((n) => {
-			// 	ingrResult = n.ingredient.search(new RegExp(value, 'i'));
-			// });
-			// const descrResult = list[i].description.search(new RegExp(value, 'i'));
-
-			// if (nameResult >= 0 || ingrResult >= 0 || descrResult >= 0) {
-			// 	this.displayedRecipes.push(list[i]);
-			// }
-
 			if (list[i].name.search(new RegExp(value, 'i')) >= 0) {
 				this.displayedRecipes.push(list[i]);
-				this.fillTagsLists(this.displayedRecipes);
 			} else if (
 				list[i].description.search(new RegExp(value, 'i')) >= 0 &&
 				!this.displayedRecipes.includes(list[i])
 			) {
 				this.displayedRecipes.push(list[i]);
-				this.fillTagsLists(this.displayedRecipes);
 			} else {
 				list[i].ingredients.forEach((n) => {
 					if (
@@ -410,11 +393,11 @@ class App {
 						!this.displayedRecipes.includes(list[i])
 					) {
 						this.displayedRecipes.push(list[i]);
-						this.fillTagsLists(this.displayedRecipes);
 					}
 				});
 			}
 		}
+		this.fillTagsLists(this.displayedRecipes);
 	}
 
 	callMainSearch(e) {
