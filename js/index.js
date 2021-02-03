@@ -339,8 +339,7 @@ class App {
 			case 'appliances-search':
 				this.appliancesTags = '';
 				for (let i = 0; i < list.length; i++) {
-					let result;
-					result = list[i].appliance.search(new RegExp(value, 'i'));
+					const result = list[i].appliance.search(new RegExp(value, 'i'));
 					if (result >= 0 && !this.appliancesTags.includes(list[i].appliance)) {
 						this.appliancesTags += `<li class="appliance" onclick="app.clickTag(this)">${list[i].appliance}</li>`;
 					}
