@@ -63,7 +63,6 @@ h3 {
 		box-sizing: border-box;
 		padding: 10px 19px;
 		border-radius: 5px;
-		// width: fit-content;
 		.list-top-part {
 			display: flex;
 			align-items: center;
@@ -97,30 +96,16 @@ h3 {
 	}
 	ul {
 		flex-direction: column;
-		flex-wrap: wrap;
-		// width: 100%;
 		width: fit-content;
-		max-height: 500px;
 		display: none;
+		overflow: auto;
+		max-height: 400px;
+		width: 100%;
 		li {
 			display: block;
 			font-size: 18px;
 			color: white;
-			margin: 4px 0;
-			// display: none;
-		}
-	}
-	#ingredients-list {
-		// display: inline-block;
-		display: none;
-		flex-direction: column;
-		// flex-wrap: wrap;
-		overflow: auto;
-		max-height: 400px;
-		p {
-			// color: white;
-			font-size: 18px;
-			margin: 4px 0;
+			margin: 4px 5px 4px 0;
 		}
 	}
 }
@@ -142,7 +127,6 @@ h3 {
 			padding: 20px;
 			height: 186px;
 			box-sizing: border-box;
-			overflow: hidden;
 		}
 		h3,
 		.time {
@@ -153,6 +137,10 @@ h3 {
 			display: flex;
 			justify-content: space-between;
 		}
+		.bottom {
+			height: 124px;
+			overflow: hidden;
+		}
 		.description,
 		.ingredients {
 			font-size: 12px;
@@ -160,29 +148,6 @@ h3 {
 		}
 	}
 }
-
-// #ingredient,
-// #appliance,
-// #utensil {
-// 	&:hover {
-// 		p {
-// 			display: none;
-// 		}
-// 		input,
-// 		ul {
-// 			display: flex;
-// 		}
-// 	}
-// }
-
-// #ingredients-search {
-// 	&:focus {
-// 		display: flex;
-// 		#ingredients-list {
-// 			display: flex;
-// 		}
-// 	}
-// }
 
 #ingredient,
 #appliance,

@@ -79,7 +79,7 @@ class App {
 		for (let i = 0; i < list.length; i++) {
 			list[i].ingredients.forEach((n) => {
 				if (!this.ingrTags.includes(n.ingredient)) {
-					this.ingrTags += `<p class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</p>`;
+					this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
 				}
 			});
 		}
