@@ -57,10 +57,7 @@ class App {
 		for (let i = 0; i < itemListsArrows.length; i++) {
 			itemListsArrows[i].addEventListener('click', () => {
 				itemLists[i].classList.toggle('open');
-				// console.log(itemLists[i].classList);
 				if (itemLists[i].classList.contains('open')) {
-					// console.log(itemLists[i].childNodes);
-					// console.log(itemListsTop[i].childNodes);
 					itemListsTop[i].childNodes[1].style.display = 'block';
 					itemListsTop[i].childNodes[3].style.display = 'none';
 					itemLists[i].childNodes[3].style.display = 'flex';
@@ -379,9 +376,6 @@ class App {
 	resetMain() {
 		this.displayedRecipes = [];
 		this.cardsContainer.innerHTML = '';
-		// this.ingrListContainer.innerHTML = '';
-		// this.appliancesListContainer.innerHTML = '';
-		// this.utensilsListContainer.innerHTML = '';
 	}
 
 	mainSearch(list, value) {
