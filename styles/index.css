@@ -21,12 +21,61 @@ h3 {
   font-weight: bold;
 }
 
-#searchbar {
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 17px;
+}
+
+#main-searchbar-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#main-searchbar-container i {
+  margin-left: -30px;
+}
+
+#main-searchbar {
   width: 100%;
   height: 69px;
   border: none;
   border-radius: 5px;
   background-color: #e7e7e7;
+  font-size: 18px;
+  padding: 0 20px;
+}
+
+#main-searchbar::-webkit-input-placeholder {
+  color: black;
+  opacity: 0.25;
+}
+
+#main-searchbar:-ms-input-placeholder {
+  color: black;
+  opacity: 0.25;
+}
+
+#main-searchbar::-ms-input-placeholder {
+  color: black;
+  opacity: 0.25;
+}
+
+#main-searchbar::placeholder {
+  color: black;
+  opacity: 0.25;
+}
+
+#main-searchbar:focus {
+  outline: none;
 }
 
 #selected-tags-container {
@@ -44,6 +93,7 @@ h3 {
   border-radius: 5px;
   text-align: center;
   padding: 10px 20px;
+  margin-right: 5px;
 }
 
 #selected-tags-container .selected-item i::before {
@@ -75,6 +125,7 @@ h3 {
           box-sizing: border-box;
   padding: 10px 19px;
   border-radius: 5px;
+  height: 80%;
 }
 
 #lists .list .list-top-part {
@@ -160,11 +211,12 @@ h3 {
   display: grid;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
-  grid-gap: 4%;
+  grid-gap: 50px 4%;
+  margin-top: 25px;
 }
 
 #cards-container .recipe-card {
-  height: 364px;
+  height: 374px;
   background-color: #e7e7e7;
   border-radius: 5px;
 }
@@ -175,16 +227,25 @@ h3 {
   border-radius: 5px 5px 0px 0px;
 }
 
-#cards-container .recipe-card #test {
+#cards-container .recipe-card #card-text {
   padding: 20px;
   height: 186px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
+#cards-container .recipe-card h3 {
+  width: 70%;
+}
+
 #cards-container .recipe-card h3,
 #cards-container .recipe-card .time {
   font-size: 18px;
+}
+
+#cards-container .recipe-card h3 i,
+#cards-container .recipe-card .time i {
+  font-size: 20px;
 }
 
 #cards-container .recipe-card .top,
@@ -200,18 +261,13 @@ h3 {
 #cards-container .recipe-card .bottom {
   height: 124px;
   overflow: hidden;
+  margin-top: 20px;
 }
 
 #cards-container .recipe-card .description,
 #cards-container .recipe-card .ingredients {
   font-size: 12px;
   width: 50%;
-}
-
-#ingredient,
-#appliance,
-#utensil {
-  height: 80%;
 }
 
 #ingredient,

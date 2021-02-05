@@ -21,12 +21,35 @@ h3 {
 	font-weight: bold;
 }
 
-#searchbar {
+header {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 17px;
+}
+
+#main-searchbar-container {
+	display: flex;
+	align-items: center;
+	i {
+		margin-left: -30px;
+	}
+}
+
+#main-searchbar {
 	width: 100%;
 	height: 69px;
 	border: none;
 	border-radius: 5px;
 	background-color: #e7e7e7;
+	font-size: 18px;
+	padding: 0 20px;
+	&::placeholder {
+		color: black;
+		opacity: 0.25;
+	}
+	&:focus {
+		outline: none;
+	}
 }
 
 #selected-tags-container {
@@ -40,6 +63,7 @@ h3 {
 		border-radius: 5px;
 		text-align: center;
 		padding: 10px 20px;
+		margin-right: 5px;
 		i::before {
 			margin-left: 10px;
 			font-size: 20px;
@@ -63,6 +87,7 @@ h3 {
 		box-sizing: border-box;
 		padding: 10px 19px;
 		border-radius: 5px;
+		height: 80%;
 		.list-top-part {
 			display: flex;
 			align-items: center;
@@ -113,9 +138,10 @@ h3 {
 #cards-container {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-gap: 4%;
+	grid-gap: 50px 4%;
+	margin-top: 25px;
 	.recipe-card {
-		height: 364px;
+		height: 374px;
 		background-color: #e7e7e7;
 		border-radius: 5px;
 		.img-placeholder {
@@ -123,14 +149,20 @@ h3 {
 			height: 178px;
 			border-radius: 5px 5px 0px 0px;
 		}
-		#test {
+		#card-text {
 			padding: 20px;
 			height: 186px;
 			box-sizing: border-box;
 		}
+		h3 {
+			width: 70%;
+		}
 		h3,
 		.time {
 			font-size: 18px;
+			i {
+				font-size: 20px;
+			}
 		}
 		.top,
 		.bottom {
@@ -140,6 +172,7 @@ h3 {
 		.bottom {
 			height: 124px;
 			overflow: hidden;
+			margin-top: 20px;
 		}
 		.description,
 		.ingredients {
@@ -147,12 +180,6 @@ h3 {
 			width: 50%;
 		}
 	}
-}
-
-#ingredient,
-#appliance,
-#utensil {
-	height: 80%;
 }
 
 #ingredient,

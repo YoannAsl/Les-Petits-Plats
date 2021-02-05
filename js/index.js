@@ -10,7 +10,7 @@ class App {
 		this.appliancesListContainer = document.querySelector('#appliances-list');
 		this.utensilsSearchBar = document.querySelector('#utensils-search');
 		this.utensilsListContainer = document.querySelector('#utensils-list');
-		this.mainSearchBar = document.querySelector('#searchbar');
+		this.mainSearchBar = document.querySelector('#main-searchbar');
 		this.cardsContainer = document.querySelector('#cards-container');
 		this.displayedRecipes = [];
 		this.ingrTags = '';
@@ -186,6 +186,14 @@ class App {
 		for (let i = 0; i < list.length; i++) {
 			const newCard = document.createElement('div');
 			let cardIngredients = '';
+			let newDescription = '';
+
+			if (list[i].description.length > 181) {
+				newDescription = `${list[i].description.substring(0, 181)} ...`;
+			} else {
+				newDescription = list[i].description;
+			}
+
 			list[i].ingredients.forEach(
 				// eslint-disable-next-line no-return-assign
 				(n) =>
@@ -194,16 +202,17 @@ class App {
 					} :</span> ${n.quantity || ''}${n.unit || ''}</li> `)
 			);
 			newCard.className = 'recipe-card';
+
 			newCard.innerHTML = `
 				<div class="img-placeholder"></div>
-				<div id="test">
+				<div id="card-text">
 					<div class="top">
 						<h3>${list[i].name}</h3>
-						<p class="time bold">${list[i].time} min</p>
+						<p class="time bold"><i class="far fa-clock"></i> ${list[i].time} min</p>
 					</div>
 					<div class="bottom">
 						<ul class="ingredients">${cardIngredients}</ul>
-						<p class="description">${list[i].description}</p>
+						<p class="description">${newDescription}</p>
 					</div>
 				</div>
 			`;
