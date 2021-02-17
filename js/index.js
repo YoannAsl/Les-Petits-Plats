@@ -175,7 +175,7 @@ class App {
 		}
 
 		for (let i = 0; i < list.length; i++) {
-			const newCard = document.createElement('div');
+			const newCard = document.createElement('article');
 			let cardIngredients = '';
 			let newDescription = '';
 
