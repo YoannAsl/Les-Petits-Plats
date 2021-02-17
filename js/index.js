@@ -44,7 +44,7 @@ class App {
 		);
 		this.mainSearchBar.addEventListener('keydown', (e) => {
 			if (e.key === 'Backspace') {
-				this.resetMain();
+				this.resetDisplay();
 				if (this.mainSearchBar.value.length < 4) {
 					this.fillTagsLists(this.recipes);
 				}
@@ -323,7 +323,7 @@ class App {
 				console.log('Erreur switch clickTag');
 		}
 		this.fillSelectedTagsContainer();
-		this.resetMain();
+		this.resetDisplay();
 		this.displayedRecipes = newList;
 		this.createRecipeCards(this.displayedRecipes);
 		this.fillTagsLists(this.displayedRecipes);
@@ -380,13 +380,13 @@ class App {
 		}
 	}
 
-	resetMain() {
+	resetDisplay() {
 		this.displayedRecipes = [];
 		this.cardsContainer.innerHTML = '';
 	}
 
 	mainSearch(list, value) {
-		this.resetMain();
+		this.resetDisplay();
 		let newList = [];
 		newList = list.filter((recipe) => {
 			return (
@@ -398,13 +398,13 @@ class App {
 			);
 		});
 		this.displayedRecipes = newList;
-		this.fillTagsLists(this.displayedRecipes);
 	}
 
 	callMainSearch(e) {
 		if (e.target.value.length >= 3) {
 			this.mainSearch(this.recipes, e.target.value);
 			this.createRecipeCards(this.displayedRecipes);
+			this.fillTagsLists(this.displayedRecipes);
 		}
 	}
 }
