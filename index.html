@@ -1,68 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles/index.css">
-    <title>Les Petits Plats</title>
-    <!-- <script defer src="./js/recipes.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+			integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="./styles/index.css" />
+		<title>Les Petits Plats</title>
+		<!-- <script defer src="./js/recipes.js"></script>
     <script defer src="./js/index.js"></script>
     <script defer>
         const app = new App(recipes);
         app.init();
     </script> -->
-</head>
-<body>
-    <header>
-        <img id="logo" src="./logo.svg" alt="Logo"></img>
-    </header>
+	</head>
+	<body>
+		<header>
+			<img id="logo" src="./logo.svg" alt="Logo" />
+		</header>
 
-    <div id="main-searchbar-container">
-        <input id="main-searchbar" type="text" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
-        <i class="fas fa-search"></i>
-    </div>
+		<div id="main-searchbar-container">
+			<input
+				id="main-searchbar"
+				type="text"
+				placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+			/>
+			<i class="fas fa-search"></i>
+		</div>
 
-    <div id="selected-tags-container"></div>
+		<div id="selected-tags-container"></div>
 
-    <section id="lists">
-        <div id="ingredient" class="list">
-            <div class="list-top-part">
-                <input id="ingredients-search" class="small-searchbar" type="text" placeholder="Rechercher un ingédient">
-                <p class="lists-names">Ingrédients</p>
-                <i class="fas fa-chevron-down arrow"></i>
-            </div>
-            <ul id="ingredients-list"></ul>
-        </div>
-        
-        <div id="appliance" class="list">
-            <div class="list-top-part">
-                <input id="appliances-search" class="small-searchbar" type="text" placeholder="Rechercher un appareil">
-                <p class="lists-names">Appareils</p>
-                <i class="fas fa-chevron-down arrow"></i>
-            </div>
-            <ul id="appliances-list"></ul>
-        </div>
-    
-        <div id="utensil" class="list">
-            <div class="list-top-part">
-                <input id="utensils-search" class="small-searchbar" type="text" placeholder="Rechercher un ustensile">
-                <p class="lists-names">Ustensiles</p>
-                <i class="fas fa-chevron-down arrow"></i>
-            </div>
-            <ul id="utensils-list"></ul>
-        </div>
-    </section>
+		<section id="lists">
+			<div id="ingredient" class="list">
+				<div class="list-top-part">
+					<input
+						id="ingredients-search"
+						class="small-searchbar"
+						type="text"
+						placeholder="Rechercher un ingédient"
+					/>
+					<p class="lists-names">Ingrédients</p>
+					<i class="fas fa-chevron-down arrow"></i>
+				</div>
+				<ul id="ingredients-list"></ul>
+			</div>
 
-    <section id="cards-container"></section>
+			<div id="appliance" class="list">
+				<div class="list-top-part">
+					<input
+						id="appliances-search"
+						class="small-searchbar"
+						type="text"
+						placeholder="Rechercher un appareil"
+					/>
+					<p class="lists-names">Appareils</p>
+					<i class="fas fa-chevron-down arrow"></i>
+				</div>
+				<ul id="appliances-list"></ul>
+			</div>
 
-    <script src="./js/recipes.js"></script>
-    <script src="./js/index.js"></script>
-    <script>
-        const app = new App(recipes);
-        app.init();
-    </script>
-</body>
+			<div id="utensil" class="list">
+				<div class="list-top-part">
+					<input
+						id="utensils-search"
+						class="small-searchbar"
+						type="text"
+						placeholder="Rechercher un ustensile"
+					/>
+					<p class="lists-names">Ustensiles</p>
+					<i class="fas fa-chevron-down arrow"></i>
+				</div>
+				<ul id="utensils-list"></ul>
+			</div>
+		</section>
+
+		<section id="cards-container"></section>
+
+		<script src="./js/recipes.js"></script>
+		<script src="./js/index.js"></script>
+		<script>
+			const app = new App(recipes);
+			app.init();
+		</script>
+	</body>
 </html>
