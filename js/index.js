@@ -144,21 +144,15 @@ class App {
 				console.log('Erreur switch removeSelectedTag');
 		}
 
+		// Créé une nouvelle liste filtrée par les tags restants
 		newList = this.filterByTags(this.recipes, this.ingrFilter, 'ingredient');
 		newList = this.filterByTags(newList, this.applFilter, 'appliance');
 		newList = this.filterByTags(newList, this.utlFilter, 'utensil');
-
 		this.displayedRecipes = newList;
 
-		if (!this.mainSearchBar.value.length == 0) {
+		// Lance une recherche et un nouveau tri si il y a du texte dans la barre de recherche principale
+		if (this.mainSearchBar.value.length !== 0) {
 			this.mainSearch(this.recipes, this.mainSearchBar.value);
-		}
-
-		if (this.displayedRecipes.length === 0) {
-			newList = this.filterByTags(this.recipes, this.ingrFilter, 'ingredient');
-			newList = this.filterByTags(newList, this.applFilter, 'appliance');
-			newList = this.filterByTags(newList, this.utlFilter, 'utensil');
-		} else {
 			newList = this.filterByTags(
 				this.displayedRecipes,
 				this.ingrFilter,
@@ -167,15 +161,12 @@ class App {
 			newList = this.filterByTags(newList, this.applFilter, 'appliance');
 			newList = this.filterByTags(newList, this.utlFilter, 'utensil');
 		}
+
 		this.cardsContainer.innerHTML = '';
 		this.displayedRecipes = newList;
 		this.fillSelectedTagsContainer();
 		this.createRecipeCards(this.displayedRecipes);
-		if (this.displayedRecipes.length === 0) {
-			this.fillTagsLists(this.recipes);
-		} else {
-			this.fillTagsLists(this.displayedRecipes);
-		}
+		this.fillTagsLists(this.displayedRecipes);
 	}
 
 	createRecipeCards(list) {
@@ -272,7 +263,9 @@ class App {
 		let newList = [];
 		switch (tag.className) {
 			case 'ingredient':
-				this.ingrFilter.push(tag.innerText);
+				if (!this.ingrFilter.includes(tag.innerText)) {
+					this.ingrFilter.push(tag.innerText);
+				}
 				if (this.displayedRecipes.length === 0) {
 					newList = this.filterByTags(
 						this.recipes,
@@ -288,7 +281,9 @@ class App {
 				}
 				break;
 			case 'appliance':
-				this.applFilter.push(tag.innerText);
+				if (!this.applFilter.includes(tag.innerText)) {
+					this.applFilter.push(tag.innerText);
+				}
 				if (this.displayedRecipes.length === 0) {
 					newList = this.filterByTags(
 						this.recipes,
@@ -304,7 +299,9 @@ class App {
 				}
 				break;
 			case 'utensil':
-				this.utlFilter.push(tag.innerText);
+				if (!this.utlFilter.includes(tag.innerText)) {
+					this.utlFilter.push(tag.innerText);
+				}
 				if (this.displayedRecipes.length === 0) {
 					newList = this.filterByTags(
 						this.recipes,
@@ -337,7 +334,7 @@ class App {
 					let result;
 					list[i].ingredients.forEach((n) => {
 						result = n.ingredient.search(new RegExp(value, 'i'));
-						if (result >= 0 && !this.ingrTags.includes(n.ingredient)) {
+						if (result === 0 && !this.ingrTags.includes(n.ingredient)) {
 							this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
 						}
 					});
@@ -348,7 +345,10 @@ class App {
 				this.appliancesTags = '';
 				for (let i = 0; i < list.length; i++) {
 					const result = list[i].appliance.search(new RegExp(value, 'i'));
-					if (result >= 0 && !this.appliancesTags.includes(list[i].appliance)) {
+					if (
+						result === 0 &&
+						!this.appliancesTags.includes(list[i].appliance)
+					) {
 						this.appliancesTags += `<li class="appliance" onclick="app.clickTag(this)">${list[i].appliance}</li>`;
 					}
 				}
@@ -360,7 +360,7 @@ class App {
 					let result;
 					list[i].ustensils.forEach((n) => {
 						result = n.search(new RegExp(value, 'i'));
-						if (result >= 0 && !this.utensilTags.includes(n)) {
+						if (result === 0 && !this.utensilTags.includes(n)) {
 							this.utensilTags += `<li class="ingredient" onclick="app.clickTag(this)">${n}</li>`;
 						}
 					});
@@ -373,10 +373,19 @@ class App {
 	}
 
 	callSecondarySearch(e) {
-		if (this.displayedRecipes.length === 0) {
-			this.secondarySearch(this.recipes, e.target.value, e.target.id);
-		} else {
-			this.secondarySearch(this.displayedRecipes, e.target.value, e.target.id);
+		if (
+			this.cardsContainer.innerHTML !==
+			`<p>Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.</p>`
+		) {
+			if (this.displayedRecipes.length === 0) {
+				this.secondarySearch(this.recipes, e.target.value, e.target.id);
+			} else {
+				this.secondarySearch(
+					this.displayedRecipes,
+					e.target.value,
+					e.target.id
+				);
+			}
 		}
 	}
 
