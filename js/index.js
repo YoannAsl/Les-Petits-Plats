@@ -211,6 +211,14 @@ class App {
 		}
 	}
 
+	/**
+	 * Prend une recette, un tag et le type et retourne true si le tag est dans la recette, *false sinon
+	 * @param {object} recipe
+	 * @param {string} ingredient
+	 * @param {string}	type
+	 *
+	 * @returns {boolean}
+	 */
 	hasItem(recipe, item, type) {
 		switch (type) {
 			case 'ingredient':
@@ -238,6 +246,14 @@ class App {
 		return false;
 	}
 
+	/**
+	 * Prend une liste de recettes, un tag et le type et retourne un tableau qui contient les *recettes qui ont le tag donné
+	 * @param {array} listRecipes
+	 * @param {string} item
+	 * @param {string} type
+	 *
+	 * @returns {array}
+	 */
 	filterByItem(listRecipes, item, type) {
 		const newRecipesList = [];
 		for (const currentRecipe of listRecipes) {
@@ -248,6 +264,14 @@ class App {
 		return newRecipesList;
 	}
 
+	/**
+	 * Prend une liste de recettes, une liste de tags et le type er retourne un tableau qui *contient les recettes qui ont tous les tags donnés
+	 * @param {array} listRecipes
+	 * @param {array} listTags
+	 * @param {string} type
+	 *
+	 * @returns {array}
+	 */
 	filterByTags(listRecipes, listTags, type) {
 		for (const currentTag of listTags) {
 			// eslint-disable-next-line no-param-reassign
@@ -334,7 +358,7 @@ class App {
 					let result;
 					list[i].ingredients.forEach((n) => {
 						result = n.ingredient.search(new RegExp(value, 'i'));
-						if (result === 0 && !this.ingrTags.includes(n.ingredient)) {
+						if (result >= 0 && !this.ingrTags.includes(n.ingredient)) {
 							this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
 						}
 					});
@@ -345,10 +369,7 @@ class App {
 				this.appliancesTags = '';
 				for (let i = 0; i < list.length; i++) {
 					const result = list[i].appliance.search(new RegExp(value, 'i'));
-					if (
-						result === 0 &&
-						!this.appliancesTags.includes(list[i].appliance)
-					) {
+					if (result >= 0 && !this.appliancesTags.includes(list[i].appliance)) {
 						this.appliancesTags += `<li class="appliance" onclick="app.clickTag(this)">${list[i].appliance}</li>`;
 					}
 				}
@@ -360,7 +381,7 @@ class App {
 					let result;
 					list[i].ustensils.forEach((n) => {
 						result = n.search(new RegExp(value, 'i'));
-						if (result === 0 && !this.utensilTags.includes(n)) {
+						if (result >= 0 && !this.utensilTags.includes(n)) {
 							this.utensilTags += `<li class="ingredient" onclick="app.clickTag(this)">${n}</li>`;
 						}
 					});
