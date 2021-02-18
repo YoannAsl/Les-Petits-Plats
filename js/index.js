@@ -334,7 +334,7 @@ class App {
 					let result;
 					list[i].ingredients.forEach((n) => {
 						result = n.ingredient.search(new RegExp(value, 'i'));
-						if (result === 0 && !this.ingrTags.includes(n.ingredient)) {
+						if (result >= 0 && !this.ingrTags.includes(n.ingredient)) {
 							this.ingrTags += `<li class="ingredient" onclick="app.clickTag(this)">${n.ingredient}</li>`;
 						}
 					});
@@ -345,10 +345,7 @@ class App {
 				this.appliancesTags = '';
 				for (let i = 0; i < list.length; i++) {
 					const result = list[i].appliance.search(new RegExp(value, 'i'));
-					if (
-						result === 0 &&
-						!this.appliancesTags.includes(list[i].appliance)
-					) {
+					if (result >= 0 && !this.appliancesTags.includes(list[i].appliance)) {
 						this.appliancesTags += `<li class="appliance" onclick="app.clickTag(this)">${list[i].appliance}</li>`;
 					}
 				}
@@ -360,7 +357,7 @@ class App {
 					let result;
 					list[i].ustensils.forEach((n) => {
 						result = n.search(new RegExp(value, 'i'));
-						if (result === 0 && !this.utensilTags.includes(n)) {
+						if (result >= 0 && !this.utensilTags.includes(n)) {
 							this.utensilTags += `<li class="ingredient" onclick="app.clickTag(this)">${n}</li>`;
 						}
 					});
@@ -399,10 +396,10 @@ class App {
 		let newList = [];
 		newList = list.filter((recipe) => {
 			return (
-				recipe.name.search(new RegExp(value, 'i')) === 0 ||
-				recipe.description.search(new RegExp(value, 'i')) === 0 ||
+				recipe.name.search(new RegExp(value, 'i')) >= 0 ||
+				recipe.description.search(new RegExp(value, 'i')) >= 0 ||
 				recipe.ingredients.some((n) => {
-					return n.ingredient.search(new RegExp(value, 'i')) === 0;
+					return n.ingredient.search(new RegExp(value, 'i')) >= 0;
 				})
 			);
 		});
